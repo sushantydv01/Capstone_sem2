@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  overflow: hidden;
-}
-
 .home-container {
   height: 100vh;
   display: flex;
@@ -165,7 +161,7 @@ body {
   transform: scale(1.05);
 }
 
-.calorie-tracker {
+.nav-button-calorie-tracker {
   background-color: #3498db;
   color: white;
 }

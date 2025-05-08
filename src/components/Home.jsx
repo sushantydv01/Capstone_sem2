@@ -71,7 +71,7 @@ const Home = () => {
           <a
             ref={firstButtonRef}
             href="/calorie-tracker"
-            className="nav-button calorie-tracker"
+            className="nav-button nav-button-calorie-tracker"
           >
             <span className="button-icon">🔥</span>
             Calorie Tracker
