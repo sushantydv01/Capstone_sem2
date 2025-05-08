@@ -30,6 +30,10 @@ const Home = () => {
             <span className="nav-icon">🍽️</span>
             Meal Planner
           </Link>
+          <Link to="/login" className="nav-link">
+            <span className="nav-icon">👤</span>
+            Login
+          </Link>
         </div>
       </nav>
 
