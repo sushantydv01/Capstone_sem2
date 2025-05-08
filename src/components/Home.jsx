@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
   const [quote, setQuote] = useState('');
-  const firstButtonRef = useRef(null);
 
   const quotes = [
     "Small changes lead to big results.",
@@ -15,9 +15,6 @@ const Home = () => {
 
   useEffect(() => {
     setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
-    if (firstButtonRef.current) {
-      firstButtonRef.current.focus();
-    }
   }, []);
 
   return (
@@ -25,14 +22,14 @@ const Home = () => {
       <nav className="navbar">
         <div className="nav-brand">Meal Planner</div>
         <div className="nav-links">
-          <a href="/calorie-tracker" className="nav-link">
+          <Link to="/calorie-tracker" className="nav-link">
             <span className="nav-icon">🔥</span>
             Calorie Tracker
-          </a>
-          <a href="/meal-planner" className="nav-link">
+          </Link>
+          <Link to="/meal-planner" className="nav-link">
             <span className="nav-icon">🍽️</span>
             Meal Planner
-          </a>
+          </Link>
         </div>
       </nav>
 
@@ -68,26 +65,26 @@ const Home = () => {
         </div>
 
         <div className="navigation-buttons">
-          <a
-            ref={firstButtonRef}
-            href="/calorie-tracker"
+          <Link
+            to="/calorie-tracker"
             className="nav-button nav-button-calorie-tracker"
           >
             <span className="button-icon">🔥</span>
             Calorie Tracker
-          </a>
+          </Link>
 
-          <a
-            href="/meal-planner"
+          <Link
+            to="/meal-planner"
             className="nav-button meal-planner"
           >
             <span className="button-icon">🍽️</span>
             Meal Planner
-          </a>
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default Home; 
+export default Home;
+
