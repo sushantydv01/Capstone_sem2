@@ -1,171 +1,253 @@
-.calorie-tracker-container {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+body, .ct-bg {
   min-height: 100vh;
-  background-color: #121212;
-  color: #ffffff;
+  width: 100vw;
+  background: linear-gradient(to bottom right, #f5f7fa, #e8f0fe);
+  color: #23272f;
+  font-family: 'Poppins', sans-serif;
 }
 
-.navbar {
-  background: #2d2d2d;
-  padding: 1rem 2rem;
+.ct-bg {
+  min-height: 100vh;
+  width: 100vw;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  padding: 0 1.5rem 2.5rem 1.5rem;
+  background: linear-gradient(to bottom right, #f5f7fa, #e8f0fe);
+  position: relative;
+  overflow: hidden;
 }
 
-.nav-brand {
-  font-size: 1.5rem;
+.bg-blob {
+  position: absolute;
+  z-index: 0;
+  opacity: 0.7;
+  pointer-events: none;
+  user-select: none;
+}
+.bg-blob.upper-right {
+  top: 10px;
+  right: 10px;
+  width: 420px;
+  height: 420px;
+}
+.bg-blob.bottom-left {
+  bottom: 10px;
+  left: 10px;
+  width: 420px;
+  height: 420px;
+}
+
+.ct-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 2.5rem auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.ct-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #23272f;
+  letter-spacing: -1px;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.ct-limit-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px 0 rgba(140, 210, 255, 0.10);
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #23272f;
+  margin-bottom: 0.5rem;
+}
+.ct-limit-label {
+  color: #6b7280;
+  font-weight: 500;
+}
+.ct-limit-value {
+  color: #38bdf8;
   font-weight: 700;
 }
 
-.nav-links {
+.ct-add-form {
   display: flex;
   gap: 1rem;
-}
-
-.nav-link {
-  color: #ffffff;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border: 1px solid #444;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.nav-link:hover {
-  color: #e0e0e0;
-  border-color: #666;
-  background-color: #333;
-}
-
-.calorie-tracker {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
-
-.calorie-tracker h1 {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2.5rem;
-}
-
-.food-form {
-  width: 100%;
-  max-width: 500px;
-  background-color: #1e1e1e;
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid #333;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.food-form input {
-  padding: 1rem;
-  border: 2px solid #333;
-  border-radius: 8px;
-  background-color: #2a2a2a;
-  color: #ffffff;
-  font-size: 1rem;
-}
-
-.food-form input:focus {
+.ct-input {
+  flex: 1 1 0;
+  padding: 1.1rem 1.2rem;
+  border-radius: 2rem;
+  border: none;
+  background: #fff;
+  font-size: 1.1rem;
+  color: #23272f;
+  font-family: inherit;
+  box-shadow: 0 2px 12px 0 rgba(140, 210, 255, 0.08);
   outline: none;
-  border-color: #4CAF50;
+  transition: box-shadow 0.18s, border 0.18s;
 }
-
-.food-form button {
-  padding: 1rem;
-  background-color: #4CAF50;
-  color: white;
+.ct-input:focus {
+  box-shadow: 0 4px 24px 0 rgba(140, 210, 255, 0.16);
+}
+.ct-add-btn {
+  padding: 1.1rem 2.2rem;
+  border-radius: 2rem;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #38bdf8 0%, #6ee7b7 100%);
+  color: #fff;
   cursor: pointer;
+  box-shadow: 0 2px 12px 0 rgba(140, 210, 255, 0.10);
+  transition: box-shadow 0.18s, background 0.18s, transform 0.18s;
 }
-
-.food-form button:hover {
-  background-color: #45a049;
+.ct-add-btn:hover {
+  background: linear-gradient(90deg, #6ee7b7 0%, #38bdf8 100%);
+  box-shadow: 0 4px 24px 0 rgba(56,189,248,0.18);
+  transform: scale(1.04) translateY(-2px);
 }
-
-.food-list {
-  width: 100%;
-  max-width: 500px;
-  margin: 2rem 0;
-}
-
-.food-list h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
-}
-
-.food-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.food-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background-color: #1e1e1e;
-  margin-bottom: 0.8rem;
-  border-radius: 8px;
-  border: 1px solid #333;
-}
-
-.food-list li:hover {
-  border-color: #4CAF50;
-}
-
-.food-list li button {
-  padding: 0.5rem 1rem;
-  background-color: #ff4444;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.food-list li button:hover {
-  background-color: #ff3333;
-}
-
-.total-calories {
-  width: 100%;
-  max-width: 500px;
+.ct-error {
+  color: #f44336;
+  margin-bottom: 0.7rem;
   text-align: center;
-  padding: 1.5rem;
-  background-color: #1e1e1e;
-  border-radius: 12px;
-  border: 1px solid #333;
+  font-size: 1.05rem;
 }
 
-.total-calories h2 {
-  color: #4CAF50;
-  margin: 0;
-  font-size: 1.5rem;
+.ct-log-section {
+  margin-top: 1.5rem;
+}
+.ct-log-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #23272f;
+  margin-bottom: 1rem;
+}
+.ct-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.ct-empty {
+  text-align: center;
+  color: #b3b3b3;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+.ct-log-card {
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(140, 210, 255, 0.08);
+  padding: 1.1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: #23272f;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.ct-log-card:hover {
+  box-shadow: 0 8px 32px 0 rgba(140, 210, 255, 0.18);
+  transform: scale(1.02) translateY(-2px);
+}
+.ct-log-food {
+  flex: 1 1 0;
+  font-weight: 600;
+  color: #23272f;
+  word-break: break-word;
+}
+.ct-log-cals {
+  color: #38bdf8;
+  font-weight: 700;
+  margin-left: 1rem;
+}
+.ct-log-delete {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #b3b3b3;
+  border-radius: 50%;
+  padding: 0.2rem 0.5rem;
+  transition: background 0.18s, color 0.18s;
+}
+.ct-log-delete:hover {
+  background: #e8f0fe;
+  color: #f44336;
+}
+
+.ct-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #23272f;
+}
+.ct-total-label {
+  color: #6b7280;
+  font-weight: 500;
+}
+.ct-total-value {
+  color: #38bdf8;
+  font-weight: 700;
 }
 
 @media (max-width: 600px) {
-  .navbar {
-    padding: 1rem;
+  .ct-container {
+    max-width: 100vw;
+    padding: 0 0.2rem;
+    gap: 1.2rem;
   }
-
-  .calorie-tracker {
-    padding: 1rem;
-    margin: 1rem auto;
+  .ct-title {
+    font-size: 1.4rem;
   }
-
-  .food-form,
-  .food-list,
-  .total-calories {
-    max-width: 100%;
+  .ct-add-form {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .ct-input, .ct-add-btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 1rem 1.2rem;
+  }
+  .ct-log-card {
+    padding: 0.8rem 0.7rem;
+    font-size: 1rem;
+  }
+  .ct-total-row {
+    font-size: 1rem;
+    margin-top: 1.2rem;
+  }
+  .bg-blob.upper-right {
+    top: 20px;
+    right: 10px;
+    width: 220px;
+    height: 220px;
+  }
+  .bg-blob.bottom-left {
+    bottom: 20px;
+    left: 10px;
+    width: 220px;
+    height: 220px;
   }
 } 

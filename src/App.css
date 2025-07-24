@@ -1,11 +1,98 @@
 body {
+  min-height: 100vh;
+  background: #fff;
+  color: #23272f;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #121212;
-  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
 }
 
 #root {
   min-height: 100vh;
-  background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100vw;
+  background: none;
+}
+
+.main-content {
+  width: 100%;
+  max-width: 900px;
+  margin: 2.5rem auto 0 auto;
+  background: rgba(35, 39, 63, 0.95);
+  border-radius: 24px;
+  box-shadow: 0 8px 40px 0 rgba(58,28,113,0.18), 0 1.5px 8px 0 rgba(58,28,113,0.10);
+  padding: 2.5rem 2rem 2rem 2rem;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.card, .neumorphic-card {
+  background: rgba(40, 44, 72, 0.98);
+  border-radius: 20px;
+  box-shadow: 0 4px 32px 0 rgba(58,28,113,0.18), 0 1.5px 8px 0 rgba(58,28,113,0.10);
+  border: 1.5px solid rgba(100,108,255,0.12);
+  padding: 2rem 1.5rem;
+  transition: box-shadow 0.25s, border 0.25s, background 0.25s;
+}
+
+.card:hover, .neumorphic-card:hover {
+  box-shadow: 0 8px 48px 0 rgba(100,108,255,0.25), 0 2px 12px 0 rgba(100,108,255,0.10);
+  border: 1.5px solid #a084ee;
+  background: linear-gradient(135deg, #232347 0%, #3a1c71 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(90deg, #5f72bd 0%, #9a5cff 100%);
+  color: #fff;
+}
+
+h1, .headline {
+  font-size: 2.7rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 0.5rem;
+}
+
+h2, .subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #b3b3e6;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #eaeaea;
+}
+
+p, .body-text {
+  font-size: 1rem;
+  color: #b3b3b3;
+}
+
+@media (max-width: 1000px) {
+  .main-content {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  h1, .headline {
+    font-size: 2rem;
+  }
+  h2, .subtitle {
+    font-size: 1.1rem;
+  }
+  .main-content {
+    padding: 0.7rem 0.2rem 0.7rem 0.2rem;
+  }
+  .card, .neumorphic-card {
+    padding: 1.2rem 0.7rem;
+    border-radius: 14px;
+  }
 }

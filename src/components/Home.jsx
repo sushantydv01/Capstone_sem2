@@ -1,90 +1,75 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
-const Home = () => {
-  const [quote, setQuote] = useState('');
+const featureData = [
+  {
+    icon: '📊',
+    title: 'Smart Tracking',
+    desc: 'Easily log your meals and track your daily calorie intake.'
+  },
+  {
+    icon: '🍽️',
+    title: 'Meal Planning',
+    desc: 'Plan your meals ahead and maintain a balanced diet.'
+  },
+  {
+    icon: '🎯',
+    title: 'Goal Setting',
+    desc: 'Set personalized goals and track your progress.'
+  },
+  {
+    icon: '📱',
+    title: 'Mobile Friendly',
+    desc: 'Access your plans on any device, anywhere.'
+  }
+];
 
-  const quotes = [
-    "Small changes lead to big results.",
-    "Your body is a reflection of your lifestyle.",
-    "Healthy eating is a way of life, not a diet.",
-    "Every meal is a chance to nourish your body.",
-    "Make your health a priority today."
-  ];
+const quotes = [
+  "Small changes lead to big results.",
+  "Your body is a reflection of your lifestyle.",
+  "Healthy eating is a way of life, not a diet.",
+  "Every meal is a chance to nourish your body.",
+  "Make your health a priority today."
+];
+
+const Home = () => {
+  const [quoteIdx, setQuoteIdx] = useState(0);
+  const quoteInterval = useRef();
 
   useEffect(() => {
-    setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+    quoteInterval.current = setInterval(() => {
+      setQuoteIdx((prev) => (prev + 1) % quotes.length);
+    }, 3500);
+    return () => clearInterval(quoteInterval.current);
   }, []);
 
   return (
-    <div className="home-container">
-      <nav className="navbar">
-        <div className="nav-brand">Meal Planner</div>
-        <div className="nav-links">
-          <Link to="/calorie-tracker" className="nav-link">
-            <span className="nav-icon">🔥</span>
-            Calorie Tracker
-          </Link>
-          <Link to="/meal-planner" className="nav-link">
-            <span className="nav-icon">🍽️</span>
-            Meal Planner
-          </Link>
-          <Link to="/login" className="nav-link">
-            <span className="nav-icon">👤</span>
-            Login
-          </Link>
+    <div className="home-bg">
+      <div className="hero-section">
+        <h1 className="hero-title">Calorie Counter & Meal Planner</h1>
+        <p className="hero-subtitle">Track your meals. Plan your day. Stay healthy.</p>
+      </div>
+      <div className="quote-section">
+        <div className="quote-card">
+          <span className="quote-icon">💡</span>
+          <span className="quote-text">"{quotes[quoteIdx]}"</span>
         </div>
-      </nav>
-
-      <div className="content-wrapper">
-        <h1 className="app-title">Calorie Counter & Meal Planner</h1>
-        <p className="tagline">Track your meals. Plan your day. Stay healthy.</p>
-        
-        <div className="quote-container">
-          <p className="motivational-quote">"{quote}"</p>
+      </div>
+      <div className="features-section">
+        <div className="features-row">
+          {featureData.map((f, i) => (
+            <div className="feature-card-modern" key={f.title}>
+              <span className="feature-emoji">{f.icon}</span>
+              <h3 className="feature-title">{f.title}</h3>
+              <p className="feature-desc">{f.desc}</p>
+            </div>
+          ))}
         </div>
-
-        <div className="features-grid">
-          <div className="feature-card">
-            <span className="feature-icon">📊</span>
-            <h3>Smart Tracking</h3>
-            <p>Easily log your meals and track your daily calorie intake</p>
-          </div>
-          <div className="feature-card">
-            <span className="feature-icon">📅</span>
-            <h3>Meal Planning</h3>
-            <p>Plan your meals ahead and maintain a balanced diet</p>
-          </div>
-          <div className="feature-card">
-            <span className="feature-icon">🎯</span>
-            <h3>Goal Setting</h3>
-            <p>Set personalized goals and track your progress</p>
-          </div>
-          <div className="feature-card">
-            <span className="feature-icon">📱</span>
-            <h3>Mobile Friendly</h3>
-            <p>Access your plans on any device, anywhere</p>
-          </div>
-        </div>
-
-        <div className="navigation-buttons">
-          <Link
-            to="/calorie-tracker"
-            className="nav-button nav-button-calorie-tracker"
-          >
-            <span className="button-icon">🔥</span>
-            Calorie Tracker
-          </Link>
-
-          <Link
-            to="/meal-planner"
-            className="nav-button meal-planner"
-          >
-            <span className="button-icon">🍽️</span>
-            Meal Planner
-          </Link>
-        </div>
+      </div>
+      <div className="cta-section">
+        <Link to="/calorie-tracker" className="cta-btn cta-blue">Calorie Tracker</Link>
+        <Link to="/meal-planner" className="cta-btn cta-coral">Meal Planner</Link>
       </div>
     </div>
   );
