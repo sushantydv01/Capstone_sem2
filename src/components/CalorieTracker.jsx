@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import './CalorieTracker.css';
 
-const DEFAULT_LIMIT = 2200;
-
 function CalorieTracker() {
   const [entries, setEntries] = useState(() => {
     const saved = localStorage.getItem('calorieEntries');
@@ -10,43 +8,21 @@ function CalorieTracker() {
   });
   const [food, setFood] = useState('');
   const [calories, setCalories] = useState('');
-  const [limit, setLimit] = useState(() => {
-    const saved = localStorage.getItem('calorieLimit');
-    return saved ? Number(saved) : DEFAULT_LIMIT;
-  });
-  const [editingLimit, setEditingLimit] = useState(false);
-  const [limitInput, setLimitInput] = useState(limit);
   const inputRef = useRef(null);
-  const limitInputRef = useRef(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
     localStorage.setItem('calorieEntries', JSON.stringify(entries));
-    localStorage.setItem('calorieLimit', limit);
-  }, [entries, limit]);
-
-  useEffect(() => {
-    if (editingLimit && limitInputRef.current) {
-      limitInputRef.current.focus();
-      limitInputRef.current.select();
-    }
-  }, [editingLimit]);
-
-  const totalCalories = entries.reduce((sum, e) => sum + Number(e.calories), 0);
+  }, [entries]);
 
   const handleAdd = (e) => {
     e.preventDefault();
-    if (!food.trim() || !calories) {
-      setError('Please enter a food and calories.');
-      inputRef.current && inputRef.current.focus();
-      return;
-    }
-    if (Number(calories) <= 0) {
-      setError('Calories must be positive.');
-      inputRef.current && inputRef.current.focus();
-      return;
-    }
     setError('');
+    if (!food.trim() || !calories) {
+      setError('Please enter both food and calories.');
+      inputRef.current && inputRef.current.focus();
+      return;
+    }
     setEntries([
       ...entries,
       { name: food.trim(), calories: Number(calories) }
@@ -60,34 +36,8 @@ function CalorieTracker() {
     setEntries(entries.filter((_, i) => i !== idx));
   };
 
-  const handleLimitClick = () => {
-    setLimitInput(limit);
-    setEditingLimit(true);
-  };
-
-  const handleLimitChange = (e) => {
-    setLimitInput(e.target.value);
-  };
-
-  const saveLimit = () => {
-    const val = Number(limitInput);
-    if (!val || val < 1) {
-      setLimitInput(limit);
-      setEditingLimit(false);
-      return;
-    }
-    setLimit(val);
-    setEditingLimit(false);
-  };
-
-  const handleLimitKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      saveLimit();
-    } else if (e.key === 'Escape') {
-      setEditingLimit(false);
-      setLimitInput(limit);
-    }
-  };
+  // Calculate total calories
+  const totalCalories = entries.reduce((sum, e) => sum + Number(e.calories), 0);
 
   return (
     <div className="ct-bg">
@@ -107,33 +57,7 @@ function CalorieTracker() {
       </svg>
       <div className="ct-container">
         <h2 className="ct-title">Calorie Tracker</h2>
-        <div className="ct-limit-card">
-          <span className="ct-limit-label">Today's Limit:</span>
-          {editingLimit ? (
-            <input
-              ref={limitInputRef}
-              className="ct-limit-edit-input"
-              type="number"
-              min={1}
-              value={limitInput}
-              onChange={handleLimitChange}
-              onBlur={saveLimit}
-              onKeyDown={handleLimitKeyDown}
-              style={{ width: '90px', border: '1.5px solid #38bdf8', borderRadius: '8px', padding: '0.3rem 0.7rem', fontSize: '1.05rem', fontFamily: 'inherit', color: '#23272f', background: '#fff', outline: 'none' }}
-            />
-          ) : (
-            <span
-              className="ct-limit-value ct-limit-editable"
-              tabIndex={0}
-              onClick={handleLimitClick}
-              onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && handleLimitClick()}
-              style={{ cursor: 'pointer' }}
-              title="Click to edit calorie limit"
-            >
-              {limit} kcal
-            </span>
-          )}
-        </div>
+        {error && <div className="ct-error">{error}</div>}
         <form className="ct-add-form" onSubmit={handleAdd}>
           <input
             ref={inputRef}
@@ -153,9 +77,7 @@ function CalorieTracker() {
           />
           <button className="ct-add-btn" type="submit">Add</button>
         </form>
-        {error && <div className="ct-error">{error}</div>}
         <div className="ct-log-section">
-          <div className="ct-log-title">Today’s Log</div>
           <div className="ct-log-list">
             {entries.length === 0 && (
               <div className="ct-empty">No entries yet. Start tracking!</div>
@@ -173,9 +95,10 @@ function CalorieTracker() {
             ))}
           </div>
         </div>
+        {/* Total calories display */}
         <div className="ct-total-row">
-          <span className="ct-total-label">Total:</span>
-          <span className="ct-total-value">{totalCalories} / {limit} kcal</span>
+          <span className="ct-total-label">Total Calories:</span>
+          <span className="ct-total-value">{totalCalories} kcal</span>
         </div>
       </div>
     </div>

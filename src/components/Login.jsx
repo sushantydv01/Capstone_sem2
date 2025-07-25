@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import './Login.css';
 import { auth } from './firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ onLogin }) => {
   const [isSignup, setIsSignup] = useState(false);
@@ -10,6 +11,7 @@ const Login = ({ onLogin }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const emailRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +30,7 @@ const Login = ({ onLogin }) => {
       }
       setError('');
       onLogin && onLogin();
+      navigate('/', { replace: true });
     } catch (err) {
       setError(err.message || 'Authentication failed.');
     } finally {
@@ -37,14 +40,12 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="login-bg-pastel">
-      {/* Upper-right fitness blob (dumbbell) */}
       <svg className="bg-blob upper-right" viewBox="0 0 320 320" fill="none">
         <ellipse cx="220" cy="100" rx="100" ry="100" fill="#a084ee" opacity="0.7" />
         <rect x="120" y="80" width="120" height="40" rx="16" fill="#38bdf8" opacity="0.7" />
         <rect x="100" y="70" width="20" height="60" rx="8" fill="#6ee7b7" opacity="0.8" />
         <rect x="220" y="70" width="20" height="60" rx="8" fill="#6ee7b7" opacity="0.8" />
       </svg>
-      {/* Bottom-left fitness blob (apple) */}
       <svg className="bg-blob bottom-left" viewBox="0 0 320 320" fill="none">
         <ellipse cx="100" cy="220" rx="110" ry="110" fill="#6ee7b7" opacity="0.7" />
         <ellipse cx="180" cy="250" rx="60" ry="50" fill="#fca5f1" opacity="0.7" />
