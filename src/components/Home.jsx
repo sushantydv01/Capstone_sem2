@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
@@ -35,13 +35,10 @@ const quotes = [
 
 const Home = () => {
   const [quoteIdx, setQuoteIdx] = useState(0);
-  const quoteInterval = useRef();
 
   useEffect(() => {
-    quoteInterval.current = setInterval(() => {
-      setQuoteIdx((prev) => (prev + 1) % quotes.length);
-    }, 3500);
-    return () => clearInterval(quoteInterval.current);
+    // Pick a random quote index on mount
+    setQuoteIdx(Math.floor(Math.random() * quotes.length));
   }, []);
 
   return (
